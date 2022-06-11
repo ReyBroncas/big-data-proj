@@ -41,8 +41,13 @@ def created_pages():
     else:
         db = mongo_client['statistics']['agg3']
 
-    ret = list(db.find({}, {}).sort())
+    ret = list(db.find({}, {}))
     statistics = [x for item in ret for x in item['statistics']]
+
+    if not len(ret):
+        return {
+            'statistics': []
+        }
 
     res = {
         'time_start': ret[0]['time_start'],
@@ -58,6 +63,11 @@ def top_users():
 
     ret = list(db.find({}, {}))
     statistics = [x for item in ret for x in item['statistics']]
+
+    if not len(ret):
+        return {
+            'statistics': []
+        }
 
     res = {
         'time_start': ret[0]['time_start'],
@@ -82,7 +92,7 @@ def domains():
 
 @app.route('/pages_by_user')
 def pages():
-    id = request.args.get('user_id')
+    user_id = request.args.get('user_id')
     cassandra_client = get_cassandra_client()
     cassandra_client.row_factory = dict_factory
 
@@ -96,7 +106,7 @@ def pages():
 
 
 @app.route('/articles_by_domain')
-def articles_by_domain():
+def articles_by_domain2():
     domain = request.args.get('domain')
     cassandra_client = get_cassandra_client()
     cassandra_client.row_factory = dict_factory

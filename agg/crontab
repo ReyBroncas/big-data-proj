@@ -1,11 +1,11 @@
 # START CRON JOB
-* * * * * python /opt/app/main.py --stat 1 > /proc/1/fd/1 2>/proc/1/fd/2
-*/5 * * * * python /opt/app/main.py --stat 2 > /proc/1/fd/1 2>/proc/1/fd/2
-* * * * * python /opt/app/main.py --stat 3 > /proc/1/fd/1 2>/proc/1/fd/2
-*/5 * * * * python /opt/app/main.py --stat 4 > /proc/1/fd/1 2>/proc/1/fd/2
+# * * * * * python /opt/app/main.py --stat 1 > /proc/1/fd/1 2>/proc/1/fd/2
+# */5 * * * * python /opt/app/main.py --stat 2 > /proc/1/fd/1 2>/proc/1/fd/2
+# * * * * * python /opt/app/main.py --stat 3 > /proc/1/fd/1 2>/proc/1/fd/2
+# */5 * * * * python /opt/app/main.py --stat 4 > /proc/1/fd/1 2>/proc/1/fd/2
 
-# 0 * * * * python /opt/app/main.py --stat 1 > /proc/1/fd/1 2>/proc/1/fd/2
-# 0 */6 * * * python /opt/app/main.py --stat 2 > /proc/1/fd/1 2>/proc/1/fd/2
-# 0 * * * * python /opt/app/main.py --stat 3 > /proc/1/fd/1 2>/proc/1/fd/2
-# 0 */6 * * * python /opt/app/main.py --stat 4 > /proc/1/fd/1 2>/proc/1/fd/2
+0 * * * * python /opt/app/main.py --stat 1 > /proc/1/fd/1 2>/proc/1/fd/2
+0 */6 * * * python /opt/app/main.py --stat 2 > /proc/1/fd/1 2>/proc/1/fd/2
+0 * * * * python /opt/app/main.py --stat 3 > /proc/1/fd/1 2>/proc/1/fd/2
+0 */6 * * * python /opt/app/main.py --stat 4 > /proc/1/fd/1 2>/proc/1/fd/2
 # END CRON JOB

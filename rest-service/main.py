@@ -77,7 +77,6 @@ def domains():
             f"allow filtering"
 
     records = cassandra_client.execute(query)
-    records
     return json.dumps([_['domain'] for _ in records.current_rows])
 
 
@@ -111,19 +110,19 @@ def articles_by_domain():
     return json.dumps([_['page_title'] for _ in records.current_rows])
 
 
-@app.route('/page_by_id')
-def articles_by_domain():
-    domain = request.args.get('domain')
-    cassandra_client = get_cassandra_client()
-    cassandra_client.row_factory = dict_factory
-
-    query = "select page_title from table_1 " \
-            f"where domain='{domain}' " \
-            f"allow filtering"
-
-    records = cassandra_client.execute(query)
-    print(records)
-    return json.dumps([_['page_title'] for _ in records.current_rows])
+# @app.route('/page_by_id')
+# def page_by_id():
+#     domain = request.args.get('domain')
+#     cassandra_client = get_cassandra_client()
+#     cassandra_client.row_factory = dict_factory
+#
+#     query = "select page_title from table_1 " \
+#             f"where domain='{domain}' " \
+#             f"allow filtering"
+#
+#     records = cassandra_client.execute(query)
+#     print(records)
+#     return json.dumps([_['page_title'] for _ in records.current_rows])
 
 
 if __name__ == '__main__':

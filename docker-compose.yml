@@ -111,9 +111,6 @@ services:
     container_name: rest-service
     ports:
       - "8080:3000"
-    volumes:
-      - ./rest-service/src:/app/src
-      - ./rest-service/data:/app/data
     depends_on:
       - cassandra
     networks:

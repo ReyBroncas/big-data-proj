@@ -1,0 +1,121 @@
+version: "3.9"
+
+networks:
+  big-data-project:
+    driver: bridge
+
+services:
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ALLOW_ANONYMOUS_LOGIN: yes
+    networks:
+      - big-data-project
+
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOSTNAME=kafka
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+    depends_on:
+      - zookeeper
+    networks:
+      - big-data-project
+
+  producer:
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+    container_name: producer
+    volumes:
+      - ./producer:/opt/app
+    depends_on:
+      - kafka
+    networks:
+      - big-data-project
+
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    container_name: consumer
+    volumes:
+      - ./consumer:/opt/app
+    depends_on:
+      - kafka
+      - cassandra
+    networks:
+      - big-data-project
+
+  aggregator:
+    build:
+      context: ./agg
+      dockerfile: Dockerfile
+    container_name: agg
+    depends_on:
+      - cassandra
+      - mongo
+    volumes:
+      - ./agg:/opt/app
+    networks:
+      - big-data-project
+
+  cassandra:
+    image: cassandra:3.11
+    container_name: cassandra
+    hostname: cassandra
+    build:
+      context: ./cassandra
+      dockerfile: ./Dockerfile
+    networks:
+      - big-data-project
+    environment:
+      - CASSANDRA_SEEDS=cassandra #,node1,node2
+      - CASSANDRA_CLUSTER_NAME=cassandra_intro
+    ports:
+       - "9040:9042"
+    volumes:
+      - ./cassandra/data:/data
+      - ./cassandra/scripts:/docker-entrypoint-initdb.d
+
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    networks:
+      - big-data-project
+
+  rest-service:
+    build:
+      context: ./rest-service
+      dockerfile: ./Dockerfile
+    container_name: rest-service
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./rest-service/src:/app/src
+      - ./rest-service/data:/app/data
+    depends_on:
+      - cassandra
+    networks:
+      - big-data-project
+

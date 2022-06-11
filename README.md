@@ -19,6 +19,6 @@
 
 #### Example
 
-- result:
+- Diagram of the project architecture:
 
-    ![](/res/img.png)
+    ![](/res/diagram.png)

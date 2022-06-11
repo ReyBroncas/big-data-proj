@@ -10,9 +10,9 @@ from datetime import timedelta
 
 app = Flask(__name__)
 
-CASSANDRA_HOST = 'localhost'
-CASSANDRA_PORT = 9040
-MONGO_HOST = 'localhost'
+CASSANDRA_HOST = 'cassandra'
+CASSANDRA_PORT = 9042
+MONGO_HOST = 'mongo'
 MONGO_PORT = 27017
 MONGO_USER = 'root'
 MONGO_PASSWORD = 'example'

@@ -112,7 +112,9 @@ services:
     ports:
       - "8080:3000"
     depends_on:
-      - cassandra
+      - producer
+      - consumer
+      - aggregator
     networks:
       - big-data-project
 

@@ -2,18 +2,17 @@
 
 ## Setup
 
-`docker-compose up kafka cassandra mongo -d`
-
 - create a topic in kafka:
 
-    `./run-cluster.sh`
+  `./add-topic.sh`
 
-- run the rest of the services:
-    
-    `docker-compose up producer consumer aggregator`
+- run rest-service
+
+  `docker-compose up rest-service -d`
+
 
 - delete/stop:
-    `docker-compose down && docker-compose rm`
+  `docker-compose down && docker-compose rm`
 
 --- 
 
@@ -21,13 +20,11 @@
 
 - Diagram of the project architecture:
 
-    ![](/res/diagram.png)
+  ![](/res/diagram.png)
 
-- Examples
-    
-    ![](/res/ex1.png)
+- Examples of working rest service
 
+  ![](/res/ex1.png)
 
-
-    ![](/res/ex2.png)
+  ![](/res/ex2.png)
 

@@ -15,15 +15,13 @@
 
   `docker-compose down && docker-compose rm`
 
---- 
-
-#### Example
+### Example
 
 - Diagram of the project architecture:
 
   ![](/res/diagram.png)
 
-- Examples of working rest service
+- Few examples of working rest service:
 
   ![](/res/ex1.png)
 

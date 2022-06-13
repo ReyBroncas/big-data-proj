@@ -106,7 +106,7 @@ def pages():
 
 
 @app.route('/articles_by_domain')
-def articles_by_domain2():
+def articles():
     domain = request.args.get('domain')
     cassandra_client = get_cassandra_client()
     cassandra_client.row_factory = dict_factory

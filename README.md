@@ -6,12 +6,13 @@
 
   `./add-topic.sh`
 
-- run rest-service
+- run rest-service:
 
   `docker-compose up rest-service -d`
 
 
 - delete/stop:
+
   `docker-compose down && docker-compose rm`
 
 --- 

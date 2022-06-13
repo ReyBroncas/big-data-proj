@@ -22,3 +22,9 @@
 - Diagram of the project architecture:
 
     ![](/res/diagram.png)
+
+- Examples
+    
+    ![](/res/ex1.png)
+    ![](/res/ex2.png)
+
